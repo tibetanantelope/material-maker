@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bugstack.untitled.mapper.TemplateMapper">
+    <select id="findEnabled" resultType="cn.bugstack.untitled.model.Template">
+        SELECT id, title, category, cover_url, description, required_image_count,
+               accepted_mime_types, max_file_size_bytes, enabled
+        FROM templates
+        WHERE enabled = TRUE
+        <if test="category != null and category != ''">
+            AND category = #{category}
+        </if>
+        ORDER BY created_at DESC, id ASC
+    </select>
+
+    <select id="findEnabledById" resultType="cn.bugstack.untitled.model.Template">
+        SELECT id, title, category, cover_url, description, required_image_count,
+               accepted_mime_types, max_file_size_bytes, enabled
+        FROM templates
+        WHERE id = #{id} AND enabled = TRUE
+    </select>
+</mapper>

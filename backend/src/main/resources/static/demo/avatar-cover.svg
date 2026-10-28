@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ddd6fe"/><stop offset="1" stop-color="#fbcfe8"/></linearGradient></defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="600" cy="350" r="190" fill="#fff" opacity=".92"/>
+  <circle cx="600" cy="300" r="72" fill="#818cf8"/>
+  <path d="M430 540C455 405 745 405 770 540Z" fill="#6366f1"/>
+  <circle cx="510" cy="260" r="18" fill="#172033"/><circle cx="690" cy="260" r="18" fill="#172033"/>
+  <path d="M545 350Q600 390 655 350" fill="none" stroke="#172033" stroke-width="12" stroke-linecap="round"/>
+  <text x="600" y="100" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="48" font-weight="700" fill="#172033">SOCIAL AVATAR</text>
+  <text x="600" y="710" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="25" fill="#334155">一张图片 · 一个清晰头像</text>
+</svg>

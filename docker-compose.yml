@@ -1,0 +1,50 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: material_maker
+      MYSQL_USER: material_maker
+      MYSQL_PASSWORD: material_maker
+      MYSQL_ROOT_PASSWORD: local_root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "material_maker", "-pmaterial_maker"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/material_maker?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      DB_USERNAME: material_maker
+      DB_PASSWORD: material_maker
+      DB_INIT_MODE: always
+      UPLOAD_DIR: /app/runtime/uploads
+    ports:
+      - "8080:8080"
+    volumes:
+      - upload_data:/app/runtime/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE_URL: http://localhost:8080/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
+  upload_data:

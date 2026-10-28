@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bugstack.untitled.mapper.AssetMapper">
+    <select id="findOwnedByIds" resultType="cn.bugstack.untitled.model.Asset">
+        SELECT id, user_id, original_filename, stored_filename, storage_path,
+               mime_type, file_size_bytes, upload_status
+        FROM assets
+        WHERE user_id = #{userId}
+          AND id IN
+        <foreach collection="assetIds" item="assetId" open="(" separator="," close=")">
+            #{assetId}
+        </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bfdbfe"/><stop offset="1" stop-color="#fef3c7"/></linearGradient></defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <circle cx="920" cy="180" r="84" fill="#f59e0b" opacity=".86"/>
+  <path d="M0 620L270 340L480 530L700 250L1200 640V800H0Z" fill="#475569" opacity=".88"/>
+  <path d="M0 660L330 470L530 620L820 420L1200 680V800H0Z" fill="#0f766e" opacity=".8"/>
+  <rect x="70" y="70" width="1060" height="660" rx="26" fill="none" stroke="#fff" stroke-width="8" opacity=".82"/>
+  <text x="96" y="150" font-family="Arial, Microsoft YaHei, sans-serif" font-size="48" font-weight="700" fill="#172033">TRAVEL POSTCARD</text>
+  <text x="96" y="205" font-family="Arial, Microsoft YaHei, sans-serif" font-size="25" fill="#334155">把两张照片组合成一张旅行明信片</text>
+</svg>

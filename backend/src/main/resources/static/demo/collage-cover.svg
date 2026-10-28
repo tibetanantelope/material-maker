@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#f8fafc"/>
+  <rect x="70" y="70" width="520" height="660" rx="26" fill="#fda4af" transform="rotate(-7 330 400)"/>
+  <rect x="340" y="70" width="520" height="660" rx="26" fill="#93c5fd" transform="rotate(4 600 400)"/>
+  <rect x="610" y="70" width="520" height="660" rx="26" fill="#86efac" transform="rotate(-5 870 400)"/>
+  <circle cx="280" cy="330" r="100" fill="#fb7185" opacity=".75"/>
+  <circle cx="605" cy="410" r="130" fill="#3b82f6" opacity=".6"/>
+  <path d="M760 590L900 260L1050 590Z" fill="#16a34a" opacity=".7"/>
+  <text x="600" y="145" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="48" font-weight="700" fill="#172033">PHOTO COLLAGE</text>
+  <text x="600" y="690" text-anchor="middle" font-family="Arial, Microsoft YaHei, sans-serif" font-size="25" fill="#334155">三张照片 · 一张拼贴</text>
+</svg>

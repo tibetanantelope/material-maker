@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bugstack.untitled.mapper.TaskMapper">
+    <insert id="insertTask">
+        INSERT INTO tasks (id, user_id, template_id, status)
+        VALUES (#{id}, #{userId}, #{templateId}, #{status})
+    </insert>
+    <insert id="insertTaskAsset">
+        INSERT INTO task_assets (task_id, asset_id, asset_order)
+        VALUES (#{taskId}, #{assetId}, #{assetOrder})
+    </insert>
+    <insert id="insertStep" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO task_steps (task_id, step_order, step_name, status)
+        VALUES (#{taskId}, #{stepOrder}, #{stepName}, #{status})
+    </insert>
+    <update id="updateTaskRunning">
+        UPDATE tasks SET status = 'PROCESSING', current_stage = #{stage}, started_at = COALESCE(started_at, CURRENT_TIMESTAMP)
+        WHERE id = #{taskId} AND status IN ('WAITING', 'PROCESSING')
+    </update>
+    <update id="updateStepRunning">
+        UPDATE task_steps SET status = 'PROCESSING', started_at = CURRENT_TIMESTAMP
+        WHERE task_id = #{taskId} AND step_name = #{stepName} AND status = 'WAITING'
+    </update>
+    <update id="updateStepSucceeded">
+        UPDATE task_steps SET status = 'SUCCEEDED', finished_at = CURRENT_TIMESTAMP
+        WHERE task_id = #{taskId} AND step_name = #{stepName} AND status = 'PROCESSING'
+    </update>
+    <update id="updateStepFailed">
+        UPDATE task_steps SET status = 'FAILED', finished_at = CURRENT_TIMESTAMP, error_message = #{reason}
+        WHERE task_id = #{taskId} AND step_name = #{stepName} AND status = 'PROCESSING'
+    </update>
+    <update id="updateTaskSucceeded">
+        UPDATE tasks SET status = 'SUCCEEDED', current_stage = NULL, result_url = #{resultUrl}, finished_at = CURRENT_TIMESTAMP
+        WHERE id = #{taskId} AND status = 'PROCESSING'
+    </update>
+    <update id="updateTaskFailed">
+        UPDATE tasks SET status = 'FAILED', current_stage = #{stage}, failure_stage = #{stage}, failure_reason = #{reason}, finished_at = CURRENT_TIMESTAMP
+        WHERE id = #{taskId} AND status IN ('WAITING', 'PROCESSING')
+    </update>
+    <select id="findByIdForUser" resultType="cn.bugstack.untitled.model.TaskRecord">
+        SELECT id, user_id, template_id, status, current_stage, failure_stage, failure_reason,
+               result_url, created_at, started_at, finished_at, updated_at
+        FROM tasks WHERE id = #{taskId} AND user_id = #{userId}
+    </select>
+    <select id="findHistory" resultType="cn.bugstack.untitled.model.TaskRecord">
+        SELECT id, user_id, template_id, status, current_stage, failure_stage, failure_reason,
+               result_url, created_at, started_at, finished_at, updated_at
+        FROM tasks WHERE user_id = #{userId}
+        ORDER BY created_at DESC
+    </select>
+    <select id="findSteps" resultType="cn.bugstack.untitled.model.TaskStep">
+        SELECT id, task_id, step_order, step_name, status, started_at, finished_at, error_message
+        FROM task_steps WHERE task_id = #{taskId} ORDER BY step_order
+    </select>
+    <select id="findOwnedAssetIds" resultType="long">
+        SELECT id FROM assets WHERE user_id = #{userId} AND id IN
+        <foreach collection="assetIds" item="assetId" open="(" separator="," close=")">
+            #{assetId}
+        </foreach>
+    </select>
+</mapper>
